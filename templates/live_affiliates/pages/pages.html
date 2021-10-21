@@ -1,0 +1,11 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="why_us page_box">
+    <div class="container h-100">
+        {% for data in page %}
+        <h4 class="mb-4">{{data.title}}</h4>
+        {{data.description | safe}}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

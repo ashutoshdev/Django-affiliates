@@ -1,0 +1,41 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="addsite_sec">
+    <div class="addsite_header">
+        <div class="container">
+            <div class="main_headding"><h4>My Referral </h4><span>Affiliate ID- {{user.id}}</span></div>
+
+        </div>
+    </div>
+    <div class="container h-100">
+        <div class="addsite_inn">
+
+            <h4 class="mb-4">My Referral User</h4>
+
+            <table class="table table-bordered table-hover table-sm">
+                <thead>
+                <tr>
+                    <th width="50" scope="col">Sr No.</th>
+                    <th scope="col">Contact Person Name</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% if allusrs %}
+                {% for allusr in allusrs %}
+                <tr>
+                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+<!--                    {{ forloop.counter0 }}-->
+                    <td>{{allusr.contact_person}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

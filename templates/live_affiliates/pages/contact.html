@@ -1,0 +1,69 @@
+{% extends 'live_affiliates/layout.html' %}
+{% load static %}
+{% block page_body %}
+<div class="contact_us">
+    <div class="container h-100">
+
+        <h3>Contact Us</h3>
+        <p>{{contact_thanks_message.description|safe}}</p>
+
+        <div class="row h-100 d-flex justify-content-center">
+            <div class="col-12 col-md-6 col-lg-6">
+
+                <div class="create_account_form">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" name="first_name" required class="form-control"
+                                           placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" name="last_name" required class="form-control"
+                                           placeholder="Last Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="email" required class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="phone" required class="form-control" placeholder="Phone Number">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea type="textarea" name="message" required class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group text-center mb-0">
+                            <button type="submit" class="btn btn-success btnrounded">SUBMIT</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="contact_info mt-4">
+                    <h4>Contact Information</h4>
+                    <p>{{contact_us_address.description|safe}}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--pip install django-simple-metatags-->
+<head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    {% load myuserapp_filters %}
+    <link rel="stylesheet" href="/static/css/style.css?{% cache_bust %}">
+    <!--    <link rel="icon" href="/static/images/{{ app_name }}.png"/>-->
+    <!--    <link rel="icon" href="/static/images/{{ app_name }}-55x55.png" sizes="32x32"/>-->
+    <!--    <link rel="icon" href="/static/images/{{ app_name }}.png" sizes="192x192"/>-->
+    <!--    <link rel="apple-touch-icon-precomposed" href="/static/images/{{ app_name }}.png"/>-->
+    <!--    <meta name="msapplication-TileImage" content="/static/images/{{ app_name }}.png"/>-->
+    <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/09f3a7d784.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+</head>
+<body>
+
+{% if user.is_authenticated %}
+{% include 'live_affiliates/common/inner_header.html' %}
+{% endif %}
+{% if not user.is_authenticated %}
+{% include 'live_affiliates/common/header.html' %}
+{% endif %}
+{% block page_body %}{% endblock %}
+
+
+{% include 'live_affiliates/common/footer.html' %}
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!--<script src="/static/js/query_submit.js"></script>-->
+
+<script>
+        $(document).ready(function(){
+          $("#hide_btn").click(function(){
+            $(".login_popup").hide();
+          });
+          $("#show_btn").click(function(){
+            $(".login_popup").show();
+          });
+        });
+
+</script>
+{% csrf_token %}
+</body>
+</html>

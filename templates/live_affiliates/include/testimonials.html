@@ -1,0 +1,44 @@
+<div class="our_testimonials">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-7 col-lg-8">
+                <div class="testimonials_box">
+                    <h4>What Affilates say...</h4>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                        <div class="carousel-inner">
+
+                            {% for data in testimonials %}
+                            <div class="carousel-item {% if forloop.counter == 1 %} active {%endif%}">
+                                <p>
+                                    <span><img src="/static/images/quote_left.svg"></span>
+
+                                    {{data.description | safe}}
+                                    <span><img src="/static/images/quote_right.svg"></span>
+                                </p>
+                                <div class="author_txt">
+                                    <h6>-{{data.name | safe}}</h6>
+                                    <a href="{{data.link | safe}}">{{data.link | safe}}</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-5 col-lg-4">
+                <div class="call_now">
+                    <div class="call_now_inn">
+                        <img src="/static/images/callnow.svg">
+                        <a class="contactmail" href="mailto:{{home_page_email.description | striptags}}">{{home_page_email.description | safe}}</a>
+                        <a class="contactcall" href="tel:{{home_page_phone.description | striptags}}">{{home_page_phone.description | safe}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="genarate_form_sec">
+	<div class="addsite_header">
+		<div class="container">
+		  <div class="main_headding"><h4>Generate Form List</h4><span>Affiliate ID- {{user.id}}</span></div>
+		</div>
+	</div>
+
+	<div class="container h-100 mt-4">
+	{% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+	
+	<div class="gererate_formlist">
+	
+		<ul>
+		{% if g_forms %}
+        {% for g_form in g_forms %}
+			<li>
+				<div class="codebody_sec">
+						<div class="codeheader_sec">
+							<div class="codeheader_name">
+								<h6>Name: </h6>
+								<p>{{g_form.name}}</p>
+							</div>
+							
+							<div class="codeheader_name">
+								<h6>Website: </h6>
+								<p>{{g_form.website}}</p>
+							</div>
+							
+							<div class="codeheader_name">
+								<h6>Title: </h6>
+								<p>{{g_form.title}}</p>
+							</div>
+						</div>
+						<div class="copycode">
+						<h5>Copy & Paste this code on your page</h5>
+						<xmp>
+							<div id="widget_myform">
+						</div>
+						<script type="text/javascript">
+						!function(){var e=document.createElement("script");e.src="https://query.atdoorstep.ae"+":"+"-static-js-widget.js#key={{user.id}}&wid={{g_form.id}}".replace(/[-]/g,"/").replace(/[#]/g,"?").replace(/[:]/g,"="),e.async=!1,document.head.appendChild(e)}();
+						</script>
+						</xmp>
+						<div class="action_buttons">
+						<a  class="btn btn-success btn-sm" role="button" href="/generate_form_view/{{g_form.id}}" target="_blank">View</a>
+						<form method="post">
+							{% csrf_token %}
+							<input type="hidden" name="id" value="{{g_form.id}}">
+
+							<button role="button" type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
+						</form>
+						<a  class="btn btn-success btn-sm" role="button" href="/generate_form_edit/{{g_form.id}}" target="_blank">Edit</a>
+						</div>
+						</div>
+				</div>
+				
+			</li>
+		{% endfor %}
+        {% endif %}
+		</ul>
+		
+	</div>
+	
+	
+		
+		</div>
+	</div>
+</div>
+
+
+
+
+ {% endblock %}

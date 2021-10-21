@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom_nav">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="/static/images/logo.svg"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/sale_report">Earnings</a>
+                    <!--                    sales_report-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/banners">Banners</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/generate_form">Generate Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/generate_button">Generate Button</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/websites">Manage Websites</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i style="font-size:22px;" class="fas fa-user-circle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/generate_form_list">Generate Form List</a>
+                        {% if request.user.is_staff %}
+                         <a class="dropdown-item" href="/generate_query_form">Generate Query Form</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="/generate_button_list">Generate Button List</a>
+                        <a class="dropdown-item" href="/my_referral">My Referral</a>
+                        <a class="dropdown-item" href="/myaccount">My Account</a>
+                        <a class="dropdown-item" href="/payment_details">Payment Details</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,77 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="page_box">
+
+    <div class="container h-100">
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="banner_sidebar">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        {% if banner_category %}
+                         {% for b_cat in banner_category %}
+                        <a class="nav-link {% if forloop.counter == 1 %} active {%endif%}" id="v-pills-{{b_cat.name}}-tab" data-toggle="pill" href="#v-pills-{{b_cat.name}}"
+                           role="tab" aria-controls="v-pills-{{b_cat.name}}" aria-selected="false">{{b_cat.name}}</a>
+                        {% endfor %}
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+                <div class="banner_body">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <h4>Banners</h4>
+
+                         {% if banner_category %}
+                         {% for b_cat in banner_category %}
+
+
+
+                        <div class="tab-pane fade show {% if forloop.counter == 1 %} active {%endif%}" id="v-pills-{{b_cat.name}}" role="tabpanel"
+                             aria-labelledby="v-pills-{{b_cat.name}}-tab">
+                            {% for bundle in b_cat.banners_set.all %}
+
+                            {% if bundle.status == True %}
+
+                                <div class="code_outer">
+                                    <div class="code_box">
+                                        <div class="code_image">
+                                            <div align="center"><a
+                                                    href="{{bundle.url}}/redirectionBy?position={{bundle.banner_position}}&aff_id={{user.id}}&bid={{bundle.id}}">
+                                                <img src="{{my_url}}/banner/{{bundle.banner_image}}"  alt="{{bundle.banner_name}}"> </a></div>
+                                        </div>
+                                        <div class="code_view">
+                                            <code>
+                                                <div style="margin:10px 5px 5px; background-color:#f2f2f2; padding:5px; text-align:left;word-wrap: break-word;"
+                                                     id="select_text1" onclick="selectText('select_text1')">
+                                                    &lt;div align="center"&gt;
+                                                    &lt;a
+                                                    href="{{bundle.url}}/redirectionBy?position={{bundle.banner_position}}&aff_id={{user.id}}&bid={{bundle.id}}"&gt;
+                                                    &lt;img src="{{my_url}}/banner/{{bundle.banner_image}}"
+                                                     alt="{{bundle.banner_name}}"&gt; &lt;/a&gt;
+                                                    &lt;/div&gt;
+                                                </div>
+                                            </code>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {%endif%}
+                            {% endfor %}
+
+                    </div>
+
+                        {% endfor %}
+                        {% endif %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

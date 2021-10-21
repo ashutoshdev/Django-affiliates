@@ -1,0 +1,72 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="create_account">
+    <div class="container">
+        <h2 class="text-center mb-4">Contact Details</h2>
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-7 m-auto">
+                <div class="create_account_form">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" name="address1" class="form-control" placeholder="Address"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" name="city" class="form-control" placeholder="City" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>PIN/ZIP Code</label>
+                                    <input type="text" name="pin" class="form-control" placeholder="PIN" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Business Type</label>
+                                    <select class="form-control" required id="exampleFormControlSelect1"
+                                            name="businesstype">
+                                        <option value="">Select</option>
+                                        <option value="Affiliate/Ad Network">Affiliate/Ad Network</option>
+                                        <option value="Email Marketing Company">Email Marketing Company</option>
+                                        <option value="Individual (Blogger, Website Owners etc)">Individual (Blogger, Website Owners etc)</option>
+                                        <option value="SEO, SEM Company">SEO, SEM Company</option>
+                                        <option value="Web Developement Company">Web Developement Company</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Choose Password</label>
+                            <input  required type="password" name="p1" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success btnrounded">SUBMIT</button>
+                        </div>
+                    </form>
+                    <p class="text-center mt-3">By signing up you agree to our <a href="#">Terms and Conditions</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'live_affiliates/include/howitwork.html' %}
+{% include 'live_affiliates/include/testimonials.html' %}
+{% endblock %}

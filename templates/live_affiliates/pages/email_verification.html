@@ -1,0 +1,34 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="forgot_password">
+  <div class="container h-100">
+    <div class="row h-100 d-flex justify-content-center">
+      <div class="col-12 col-md-8 col-lg-7 m-auto">
+        <h3 class="text-center">Verify Details</h3>
+<!--        <p class="text-center">9041607755</p>-->
+        <div class="create_account_form">
+            <form method="post" action="/resend_activate_email">
+
+             {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                         <h6>Also please verify your Email by</h6>
+                         <p>Clicking on verification link sent to  {{ message }}</p>
+
+                    </div>
+<!--          <h6>Please verify your Phone by</h6>-->
+<!--          <p>Giving us a missed call on +91-9821404232 from 9041607755</p>-->
+               {% csrf_token %}
+              <input name="email" type="hidden" value="{{ message }}">
+                {% endfor %}
+                    {% endif %}
+               <input class="btn btn-outline-primary btn-sm" role="button" type="submit" value="click to resend">
+          </form>
+          <h6 class="mt-4 mb-3">Thank you for registering with Atdoorstep Affiliates.</h6>
+<!--          <button type="submit" class="btn btn-success btnrounded">Refresh after verifying</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'live_affiliates/layout.html' %}
+
+{% block page_body %}
+
+<div class="create_account">
+    <div class="container">
+        <h2 class="text-center mb-5">Affiliate Login</h2>
+        <div class="row">
+            <div class="col-12 col-md-7 col-lg-8">
+                <h4>Benefits</h4>
+                <ul class="benifits_list">
+                    <li>
+                        <h6>Highest Commission</h6>
+                        <p> 40% per Transaction. Upto 4 Transactions</p>
+                    </li>
+                    <li>
+                        <h6>Customize Enquiry Form</h6>
+                        <p> Size. Color. Call To Action</p>
+                    </li>
+                    <li>
+                        <h6>Faster Payments</h6>
+                        <p> Monthly - via NEFT or Wire Transfer</p>
+                    </li>
+                    <li>
+                        <h6>Custom Options</h6>
+                        <p> Banners, Email, Landing Page</p>
+                    </li>
+                    <li>
+                        <h6>Trusted Brand</h6>
+                        <p> An India mart Group Company</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="create_account_form">
+                    <h4 class="text-center">Login</h4>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="username" required class="form-control" placeholder="Enter your email/username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" required class="form-control" placeholder="Enter your password">
+                        </div>
+                        <a class="forgot_pass" href="/password_reset">Forgot Password</a>
+                        <button type="submit" class="btn btn-success btnrounded btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="spacer mt-5"></div>
+    </div>
+</div>
+
+{% include 'live_affiliates/include/howitwork.html' %}
+{% include 'live_affiliates/include/testimonials.html' %}
+
+{% endblock %}

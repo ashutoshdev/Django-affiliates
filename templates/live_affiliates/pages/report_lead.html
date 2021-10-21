@@ -1,0 +1,135 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="addsite_sec">
+  <div class="addsite_header">
+    <div class="container">
+      <div class="main_headding"><h4>Enquiry Generation Report</h4><span>Affiliate ID- {{user.id}}</span></div>
+    </div>
+  </div>
+  <div class="container h-100">
+    <div class="status_box">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+          <h5>This Month #</h5>
+          <ul>
+            <li style="background: #3F51B5;">
+              <h6>Received [?]</h6>
+              <h4>0</h4>
+            </li>
+            <li style="background: #5d6bb9;">
+              <h6>Sold #</h6>
+              <h4>0</h4>
+            </li>
+            <li style="background: #7580c1;">
+              <h6>Earning #</h6>
+              <h4>0 INR</h4>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+          <h5>Last Month #</h5>
+          <ul>
+            <li style="background: #3F51B5;">
+              <h6>Received [?]</h6>
+              <h4>0</h4>
+            </li>
+            <li style="background: #5d6bb9;">
+              <h6>Sold #</h6>
+              <h4>0</h4>
+            </li>
+            <li style="background: #7580c1;">
+              <h6>Earning #</h6>
+              <h4>0 INR</h4>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="search_filter">
+      <div class="row d-flex" style="align-items: flex-end;">
+        <div class="col-12 col-sm-3 col-md-3">
+          <div class="select_search">
+            <h6>Search by:</h6>
+            <select class="form-control">
+              <option value="last_month">Last Month</option>
+              <option value="this_month" selected="selected">This Month</option>
+              <option value="all">All time</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+        </div>
+      <div class="col-12 col-sm-4 col-md-4">
+        <div class="select_filter">
+          <h6>Domain / Channel Filter:</h6>
+          <select class="form-control">
+            <option selected="selected" value="this_month">All Domain</option>
+           {% if websites %}
+            {% for website in websites %}
+            <option  value="{{website.website_address}}">{{website.website_address}}</option>
+            {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-sm-3 col-md-3">
+        <div class="select_filter">
+          <h6>Type:</h6>
+          <select class="form-control">
+            <option value="">All</option>
+            <option value="inbound">Inbound</option>
+            <option value="domestic">Domestic</option>
+            <option value="outbound">Outbound</option>
+            <option value="international">International</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-sm-2 col-md-2">
+        <button type="submit">Go</button>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="seles_report">
+
+    <h4 class="mb-3 mt-3">Enquiry Generation - Report</h4>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th width="50" style="white-space: nowrap;" scope="col">Sr No.</th>
+          <th scope="col">Website URL</th>
+          <th class="text-right" scope="col">Lead Received</th>
+          <th class="text-right" scope="col">Valid Leads</th>
+          <th class="text-right" scope="col">Trash Leads [?]</th>
+          <th class="text-right" scope="col">Leads Sold</th>
+          <th class="text-right" scope="col">My Realized EPL [?]</th>
+          <th class="text-right" scope="col">My Realized Earning [?]</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if websites %}
+      {% for website in websites %}
+
+        <tr>
+          <th class="text-center" scope="row">{{ forloop.counter }}</th>
+          <td>{{website.website_address}}</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+      {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+    </div>
+    <p>#  Subject to Change.</p>
+  </div>
+  </div>
+</div>
+{% endblock %}

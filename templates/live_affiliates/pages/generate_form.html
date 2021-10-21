@@ -1,0 +1,179 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="genarate_form_sec">
+	<div class="addsite_header">
+		<div class="container">
+		  <div class="main_headding"><h4>Generate Form</h4><span>Affiliate ID- {{user.id}}</span></div>
+		</div>
+	</div>
+
+	<div class="container h-100 mt-4">
+		<div class="row">
+			<div class="col-sm-12 col-md-4">
+				<div class="filter_box">
+					<h5>Form Previewer</h5>
+					{% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form  method="post">
+                         {% csrf_token %}
+
+                        <label>Websites</label>
+                        <select class="form-control" name="website" required id="exampleFormControlSelect1"
+                                name="businesstype">
+                        {% for website in websites %}
+
+                        <option value="{{website.website_address}}">{{website.website_address}}</option>
+                        {%endfor%}
+                        </select>
+
+					<ul class="selctsection_box checklist_item">
+						<li class="radiobox">
+							{% if cities %}
+                        	 {% for city in cities.data %}
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" name="locations[]"  {% if forloop.counter == 1 %} checked {%endif%} type="checkbox" value="{{city.id}}">
+							  <label class="form-check-label">{{city.locality}}</label>
+							</div>
+							{% endfor %}
+                        	{% endif %}
+
+						</li>
+
+					</ul>
+
+					<ul class="selctsection_box checklist_item">
+						<li class="radiobox">
+							{% if cat %}
+                        	 {% for b_cat in cat %}
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" name="category[]"  {% if forloop.counter == 1 %} checked {%endif%} type="checkbox" value="{{b_cat.id}}">
+							  <label class="form-check-label">{{b_cat.name}}</label>
+							</div>
+							{% endfor %}
+                        	{% endif %}
+						</li>
+					</ul>
+
+				   <ul class="filtertitle">
+						<li class="filtertitlebox">
+							<label>Form Name</label>
+							<input type="text" name="name" required value="" class="form-control form-control-sm">
+						</li>
+					</ul>
+
+					<ul class="filtertitle">
+						<li class="filtertitlebox">
+							<label>Title</label>
+							<input type="text" name="title" value="Our Services" class="form-control form-control-sm">
+						</li>
+					</ul>
+
+					<ul class="selctsection_box">
+
+
+						<li class="selectbox">
+							<div class="settingbox">
+								<label>Width</label>
+								<input type="text" name="width" value="500px" class="form-control form-control-sm">
+							</div>
+							<div class="settingbox">
+								<label>Height</label>
+								<input type="text" name="height" value="500px" class="form-control form-control-sm">
+							</div>
+						</li>
+
+						<li class="selectbox">
+							<div class="settingbox">
+								<label>Border</label>
+								<input type="color" name="border" class="form-control form-control-sm">
+							</div>
+							<div class="settingbox">
+								<label>Title Background</label>
+								<input type="color" name="title_background" class="form-control form-control-sm">
+							</div>
+						</li>
+
+
+
+						<li class="selectbox">
+							<div class="settingbox">
+								<label>Title Text</label>
+								<input type="color" name="title_text_color" class="form-control form-control-sm">
+							</div>
+							<div class="settingbox">
+								<label>Body Text</label>
+								<input type="color" name="body_text_color" class="form-control form-control-sm">
+							</div>
+
+						</li>
+						<li class="selectbox">
+
+							<div class="settingbox">
+								<label>Body Background</label>
+								<input type="color" name="body_text_background"  class="form-control form-control-sm">
+							</div>
+						</li>
+
+
+					</ul>
+
+					<ul class="filtertitle">
+						<li class="filtertitlebox">
+							<label>URL of thankyou page (Analytics Tracking)</label>
+							<input required type="text" name="thank_you_url" class="form-control form-control-sm">
+							<a href="#">e.g: https://example.com/thankyou</a>
+						</li>
+					</ul>
+                   <button type="submit">Save & Preview</button>
+                </form>
+
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-8">
+				<div class="genarate_form_body">
+					<div class="canvasbody">
+						{% if g_form.id %}
+						<div id="widget_myform" style="max-width:500px">
+						</div>
+<!--						<script>-->
+<!--	!function(){var e=document.createElement("script");e.src="http://127.0.0.1"+":"+"8000-static-js-widget.js#key={{user.id}}&wid={{g_form.id}}".replace(/[-]/g,"/").replace(/[#]/g,"?").replace(/[:]/g,"="),e.async=!1,document.head.appendChild(e)}();-->
+<!--</script>-->
+
+						<script>
+	!function(){var e=document.createElement("script");e.src="https://query.atdoorstep.ae"+":"+"-static-js-widget.js#key={{user.id}}&wid={{g_form.id}}".replace(/[-]/g,"/").replace(/[#]/g,"?").replace(/[:]/g,"="),e.async=!1,document.head.appendChild(e)}();
+</script>
+{% endif %}
+
+					</div>
+					<div class="codebody">
+						<div class="codeheader">
+							<h5>Copy & Paste this code on your page</h5>
+						</div>
+						{% if g_form.id %}
+						<xmp>
+							<div id="widget_myform">
+						</div>
+						<script type="text/javascript">
+						!function(){var e=document.createElement("script");e.src="https://query.atdoorstep.ae"+":"+"-static-js-widget.js#key={{user.id}}&wid={{g_form.id}}".replace(/[-]/g,"/").replace(/[#]/g,"?").replace(/[:]/g,"="),e.async=!1,document.head.appendChild(e)}();
+						</script>
+
+						</xmp>
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+ {% endblock %}

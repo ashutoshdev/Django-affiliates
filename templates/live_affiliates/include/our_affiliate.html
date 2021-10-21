@@ -1,0 +1,30 @@
+<div class="our_affilate">
+    <div class="container">
+        <h3 class="mb-4">What we give to our Affilates...</h3>
+        <div class="our_affilate_tabs">
+            <ul class="nav custom_tabs" id="myTab" role="tablist">
+
+                {% for data in home_widget %}
+                <li class="nav-item">
+                    <a class="nav-link {% if forloop.counter == 1 %} active {%endif%} " id="enquiry_widgets-tab-{{ forloop.counter }}" data-toggle="tab"
+                       href="#enquiry_widgets-{{ forloop.counter }}"
+                       role="tab" aria-controls="enquiry_widgets-{{ forloop.counter }}" aria-selected="true">{{data.title}}</a>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                {% for data in home_widget %}
+                <div class="tab-pane fade show {% if forloop.counter == 1 %} active {%endif%} " id="enquiry_widgets-{{ forloop.counter }}" role="tabpanel"
+                     aria-labelledby="enquiry_widgets-{{ forloop.counter }}-tab">
+                    <div class="tab_body">
+                      {{data.description | safe}}
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>

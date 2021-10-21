@@ -1,0 +1,221 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="addsite_sec">
+    <div class="addsite_header">
+        <div class="container">
+            <div class="main_headding"><h4>Account Details </h4><span>Affiliate ID- {{user.id}}</span></div>
+        </div>
+    </div>
+    <div class="profile_sec">
+        <div class="container h-100">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            <div class="profile_menu">
+                <ul>
+                    <li><a href="#personal_info">Personal Information</a></li>
+                    <li><a href="#payment_setting">Payment Setting</a></li>
+                    <li><a href="#change_password">Change Password</a></li>
+                    <li><a href="#your_referall_code">Referral Code</a></li>
+                </ul>
+            </div>
+
+            <form action="/change_personal_info_myaccount" method="post">
+                {% csrf_token %}
+            <div id="personal_info" class="formbox">
+                <h5>Personal Information</h5>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label>Company Name / Payee Name:</label>
+                            <input type="text" class="form-control" readonly value="{{profile.company_name_or_payee_name}}">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Person:</label>
+                            <input type="text" class="form-control" value="{{profile.contact_person}}" name="contact_person">
+                        </div>
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <input type="text" class="form-control" value="{{profile.address}}" name="address">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <input type="text" class="form-control" value="{{profile.city}}" name="city">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>State:</label>
+                                    <input type="text" class="form-control" value="{{profile.state}}" name="state">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Pin Code:</label>
+                                    <input type="text" class="form-control" value="{{profile.zip}}" name="zip">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <input type="text" class="form-control" value="{{profile.country}}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Mobile:</label>
+                                    <input type="number" class="form-control" value="{{profile.mobile_number}}" name="mobile_number">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                      <input type="number" class="form-control" value="{{profile.phone}}" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" class="form-control" readonly value="{{user.email}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+            </form>
+            <form action="/change_payment_settings_myaccount" method="post">
+                {% csrf_token %}
+            <div id="payment_setting" class="formbox">
+                <h5>Payment Setting</h5>
+<!--                {% if messages %}-->
+<!--                {% for message in messages %}-->
+<!--                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">-->
+<!--                {{ message }}-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--                {% endif %}-->
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Payment Method:</label>
+                                    <select class="form-control" readonly>
+                                        <option>Cheque</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Frequency:</label>
+                                    <select class="form-control" readonly>
+                                        <option>Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tax Information (PAN No # of {{profile.contact_person}}):</label>
+                                    <input type="text" class="form-control" name="pan_no" value="{{payment.pan_no}}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Bank Account Number:</label>
+                                    <input type="number" class="form-control" name="bank_account_number" value="{{payment.bank_account_number}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Name:</label>
+                                    <input type="text" class="form-control" name="bank_name" value="{{payment.bank_name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch Name:</label>
+                                    <input type="text" class="form-control" name="branch_name" value="{{payment.branch_name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>IFSC Code:</label>
+                                    <input type="text" class="form-control" name="ifsc_code" value="{{payment.ifsc_code}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+             </form>
+            <form action="/change_password_myaccount" method="post">
+                {% csrf_token %}
+            <div id="change_password" class="formbox">
+                <h5>Change Password</h5>
+<!--                <h5>Change Password</h5>-->
+<!--                {% if messages %}-->
+<!--                {% for message in messages %}-->
+<!--                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">-->
+<!--                {{ message }}-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--                {% endif %}-->
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" required class="form-control" value="{{user.username}}">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>New Password:</label>
+                                    <input type="password" name="password"  value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Retype New Password:</label>
+                                    <input type="password" name="conf_password"  value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+            </form>
+             <div id="your_referall_code" class="formbox">
+                <h5>My Referral Link</h5>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <a href="http://127.0.0.1:8000/referralsignup/{{profile.your_referral_code}}">
+                                http://127.0.0.1:8000/referralsignup/{{profile.your_referral_code}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="your_referall_code" class="formbox">
+                <h5>My Referral Code</h5>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <a href="http://127.0.0.1:8000/referralsignup/{{profile.your_referral_code}}">
+                                {{profile.your_referral_code}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

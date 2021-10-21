@@ -1,0 +1,314 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="genarate_form_sec">
+    <div class="addsite_header">
+        <div class="container">
+            <div class="main_headding"><h4>Generate Form</h4><span>Affiliate ID- {{user.id}}</span></div>
+        </div>
+    </div>
+
+    <div class="container h-100 mt-4">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="filter_box">
+                    <h5>Form Previewer</h5>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <ul class="filtertitle">
+                            <li class="filtertitlebox">
+                                <label>Form Name</label>
+                                <input type="text" name="f_name" required value="" class="form-control form-control-sm">
+                            </li>
+                        </ul>
+
+                        <label>Websites</label>
+                        <select class="form-control" name="website" required id="exampleFormControlSelect1"
+                                name="businesstype">
+                            {% for website in websites %}
+                            <option value="{{website.website_address}}">{{website.website_address}}</option>
+                            {%endfor%}
+                        </select>
+
+
+                        <ul class="selctsection_box checklist_item">
+                            <li class="radiobox">
+                                <div class="form-check form-check-inline">
+                                    <input required class="form-check-input" name="name" type="checkbox" value="True">
+                                    <label class="form-check-label">Name</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input  required class="form-check-input" name="email" type="checkbox" value="True">
+                                    <label class="form-check-label">Email</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input  required class="form-check-input" name="phone" type="checkbox" value="True">
+                                    <label class="form-check-label">Phone</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input  required class="form-check-input" name="query" type="checkbox" value="True">
+                                    <label class="form-check-label">Query</label>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <label>Websites</label>
+                        <select class="form-control" name="crm_url" required>
+                            <option value="irvine_crm">Irvine CRM</option>
+                            <option value="web_crm">WEB CRM</option>
+
+                        </select>
+
+                        <ul class="filtertitle">
+                            <li class="filtertitlebox">
+                                <label>Lead Source UUID</label>
+                                <input type="text" name="lead_source" required value=""
+                                       class="form-control form-control-sm">
+                            </li>
+                        </ul>
+
+                        <ul class="filtertitle">
+                            <li class="filtertitlebox">
+                                <label>Form title</label>
+                                <input type="text" name="f_title" required value=""
+                                       class="form-control form-control-sm">
+                            </li>
+                        </ul>
+
+                        <ul class="filtertitle">
+                            <li class="filtertitlebox">
+                                <label>Form Description</label>
+                                <input type="text" name="f_description" required value=""
+                                       class="form-control form-control-sm">
+                            </li>
+                        </ul>
+
+                        <ul class="selctsection_box">
+                            <li class="selectbox">
+                                <div class="settingbox">
+                                    <label>Width</label>
+                                    <input type="text" name="width" value="500px" class="form-control form-control-sm">
+                                </div>
+                                <div class="settingbox">
+                                    <label>Label Color</label>
+                                    <input type="color" name="label_color" class="form-control form-control-sm">
+                                </div>
+                            </li>
+
+                            <li class="selectbox">
+                                <div class="settingbox">
+                                    <label>Border</label>
+                                    <input type="color" name="border" class="form-control form-control-sm">
+                                </div>
+                                <div class="settingbox">
+                                    <label>Title Description Color</label>
+                                    <input type="color" name="title_background_description"
+                                           class="form-control form-control-sm">
+                                </div>
+                            </li>
+
+                            <li class="selectbox">
+                                <div class="settingbox">
+                                    <label>Title Text</label>
+                                    <input type="color" name="title_text_color" class="form-control form-control-sm">
+                                </div>
+
+                            </li>
+
+                            <li class="selectbox">
+                                <div class="settingbox">
+                                    <label>Body Background</label>
+                                    <input type="color" name="body_text_background"
+                                           class="form-control form-control-sm">
+                                </div>
+                            </li>
+
+                            <li class="selectbox">
+                                <div class="settingbox">
+                                    <label>Submit background color</label>
+                                    <input type="color" name="submit_text_color" class="form-control form-control-sm">
+                                </div>
+
+
+                            </li>
+                            <li>
+                                <div class="settingbox">
+                                    <label>Submit background border</label>
+                                    <input type="color" name="submit_text_border" class="form-control form-control-sm">
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+                        <ul class="filtertitle">
+                            <li class="filtertitlebox">
+                                <label>URL of thankyou page (Analytics Tracking)</label>
+                                <input required type="text" name="thank_you_url" class="form-control form-control-sm">
+                                <a href="#">e.g: https://example.com/thankyou</a>
+                            </li>
+                        </ul>
+                        <button type="submit">Save & Preview</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-8">
+                <div class="genarate_form_body">
+
+                    {% if g_form.id %}
+
+                    <div class="canvasbody">
+                        <div class="col-sm-4">
+                            <form name="submit_form" id="aff_sub_form">
+                                <div class="gbinquery_form"
+                                     style="width:{{g_form.width}}; height=auto; background-color:{{g_form.body_text_background}};border-width: 2px;border-color: {{g_form.border}};border-style: solid;border-radius: 15px;">
+                                    <h4 style="text-align: center; color: {{g_form.title_text_color}}; font-size: 20px; margin-bottom: 0; font-weight: 600;">
+                                        {{g_form.f_title}}</h4>
+
+                                    <span style="text-align: center; display: block; color: {{g_form.title_background_description}}; font-size: 12px; margin-bottom: 20px; font-weight: 400;">{{g_form.f_description}}</span>
+                                    <input type="hidden"  id="crm_type" name="crm_type"
+                                               value="{{g_form.crm_url}}">
+                                    <input type="hidden"  id="lead_source" name="lead_source"
+                                               value="{{g_form.lead_source}}">
+                                    <input type="hidden"  id="thank_you" name="thank_you"
+                                               value="{{g_form.thank_you}}">
+                                    {% if g_form.name %}
+                                    <div class="gb_lable">
+                                        <label for="name" style="color:{{g_form.label_color}};">Full Name</label>
+                                        <input type="text" required id="name" name="name" value="">
+                                        <p id="v_name" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.phone %}
+
+                                    <div class="gb_lable">
+                                        <select name="f_countryCode" id="f_countryCode">
+
+                                        </select>
+                                        <label for="phone" style="color:{{g_form.label_color}};">Phone Number</label>
+                                        <input id="phone" required name="phone" value="" type="tel">
+                                        <p id="v_phone" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.email %}
+                                    <div class="gb_lable">
+                                        <label for="email" style="color:{{g_form.label_color}};">Email</label>
+                                        <input type="email" required name="email" value="" id="email">
+                                        <p id="v_email" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.query %}
+                                    <div class="gb_lable">
+                                        <label for="query" style="color:{{g_form.label_color}};">Query </label>
+                                        <textarea rows="3" id="query" name="query" required cols="50"></textarea>
+                                        <p id="v_query" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    <input type="text" readonly id="mainCaptcha_c"/>
+                                    <input type="button" id="refresh" value="Refresh" onclick="Captcha_c();" />
+                                    <input type="text" id="txtInput"/>
+                                    <div class="gb_lable">
+                                        <button class="gbbutton_submit" onclick="ValidCaptcha();" type="button"
+                                                style="background-color:{{g_form.submit_text_color}}; border-width: 2px;border-color: {{g_form.submit_text_border}};border-style: solid;border-radius: 4px;">
+                                            Submit
+                                        </button>
+
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+
+                <div class="codebody">
+                    <div class="codeheader">
+                        <h5>Copy & Paste this code on your page</h5>
+                    </div>
+
+
+                    {% if g_form.id %}
+                    <xmp>
+                        <script src="https://query.atdoorstep.ae/static/js/query_submit.js"></script>
+                        <link rel="stylesheet" href="https://query.atdoorstep.ae/static/css/affi_atdoorstep.css"/>
+                        <div class="canvasbody">
+                            <div class="col-sm-4">
+                                <form name="submit_form" id="crmForm" method="post">
+                                    <div class="gbinquery_form"
+                                         style="width:{{g_form.width}}; height=auto; background-color:{{g_form.body_text_background}};border-width: 2px;border-color: {{g_form.border}};border-style: solid;border-radius: 15px;">
+                                        <h4 style="text-align: center; color: {{g_form.title_text_color}}; font-size: 20px; margin-bottom: 0; font-weight: 600;">
+                                        {{g_form.f_title}}</h4>
+
+                                    <span style="text-align: center; display: block; color: {{g_form.title_background_description}}; font-size: 12px; margin-bottom: 20px; font-weight: 400;">{{g_form.f_description}}</span>
+                                    <input type="hidden"  id="crm_type" name="crm_type"
+                                               value="{{g_form.crm_url}}">
+                                    <input type="hidden"  id="lead_source" name="lead_source"
+                                               value="{{g_form.lead_source}}">
+                                    <input type="hidden"  id="thank_you" name="thank_you"
+                                               value="{{g_form.thank_you}}">
+                                    {% if g_form.name %}
+                                    <div class="gb_lable">
+                                        <label for="name" style="color:{{g_form.label_color}};">Full Name</label>
+                                        <input type="text" required id="name" name="name" value="">
+                                        <p id="v_name" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.phone %}
+
+                                    <div class="gb_lable">
+                                        <select name="f_countryCode" id="f_countryCode">
+
+                                        </select>
+                                        <label for="phone" style="color:{{g_form.label_color}};">Phone Number</label>
+                                        <input id="phone" required name="phone" value="" type="tel">
+                                        <p id="v_phone" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.email %}
+                                    <div class="gb_lable">
+                                        <label for="email" style="color:{{g_form.label_color}};">Email</label>
+                                        <input type="email" required name="email" value="" id="email">
+                                        <p id="v_email" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    {% if g_form.query %}
+                                    <div class="gb_lable">
+                                        <label for="query" style="color:{{g_form.label_color}};">Query </label>
+                                        <textarea rows="3" id="query" name="query" required cols="50"></textarea>
+                                        <p id="v_query" style="color:red;"></p>
+                                    </div>
+                                    {% endif %}
+                                    <input type="text" readonly id="mainCaptcha_c"/>
+                                    <input type="button" id="refresh" value="Refresh" onclick="Captcha_c();" />
+                                    <input type="text" id="txtInput"/>
+                                    <div class="gb_lable">
+                                        <button class="gbbutton_submit" onclick="ValidCaptcha();" type="button"
+                                                style="background-color:{{g_form.submit_text_color}}; border-width: 2px;border-color: {{g_form.submit_text_border}};border-style: solid;border-radius: 4px;">
+                                            Submit
+                                        </button>
+
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
+                </div>
+                </xmp>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

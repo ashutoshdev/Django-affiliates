@@ -1,0 +1,107 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<div class="genarate_form_sec">
+	<div class="addsite_header">
+		<div class="container">
+		  <div class="main_headding"><h4>Generate Form List</h4><span>Affiliate ID- {{user.id}}</span></div>
+		</div>
+	</div>
+
+	<div class="container h-100 mt-4">
+	
+	
+	<div class="gererate_formlist">
+		{% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+	
+		<ul>
+		{% if g_forms %}
+        {% for g_form in g_forms %}
+			<li>
+				<div class="codebody_sec">
+						<div class="codeheader_sec">
+							<div class="codeheader_name">
+								<h6>Name: </h6>
+								<p>{{g_form.name}}</p>
+							</div>
+							
+							<div class="codeheader_name">
+								<h6>Website: </h6>
+								<p>{{g_form.website}}</p>
+							</div>
+							
+
+						</div>
+						<div class="copycode">
+						<div class="ads_buttonview">
+						<h5 class="mb-2">Generated button view</h5>
+				        <a target="_blank" href="https://atdoorstep.ae/redirectionBy?position=button&referrer={{g_form.website}}&aff_id={{user.id}}&bid={{g_form.id }}" id="ads_button" style="
+	width: {{g_form.width}};
+    background: {{g_form.title_background}};
+    padding: 5px 20px;
+    min-height: {{g_form.height}};
+    color: {{g_form.title_text_color}};
+    border-style: solid;
+	border-color: {{g_form.border}};
+	border-width:1px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: {{g_form.size}};
+    display: inline-block;
+    text-align: center;
+    display: flex;
+    align-items: center;"><span style="width:100%; text-align:center;">{{g_form.title}}</span> </a></div>
+						<h5 class="mt-2">Copy & Paste this code on your page</h5>
+						<xmp>
+							<a target="_blank" href="https://atdoorstep.ae/redirectionBy?position=button&referrer={{g_form.website}}&aff_id={{user.id}}&bid={{g_form.id }}" id="ads_button" style="
+	width: {{g_form.width}};
+    background: {{g_form.title_background}};
+    padding: 5px 20px;
+    min-height: {{g_form.height}};
+    color: {{g_form.title_text_color}};
+    border-style: solid;
+	border-color: {{g_form.border}};
+	border-width:1px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: {{g_form.size}};
+    display: inline-block;
+    text-align: center;
+    display: flex;
+    align-items: center;"><span style="width:100%; text-align:center;">{{g_form.title}}</span> </a>
+						</xmp>
+						<div class="action_buttons">
+
+						<form method="post">
+							{% csrf_token %}
+							<input type="hidden" name="id" value="{{g_form.id}}">
+
+							<button role="button" type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
+						</form>
+						&nbsp; &nbsp;<a  class="btn btn-success btn-sm" role="button" href="/generate_button_edit/{{g_form.id}}" target="_blank">Edit</a>
+						</div>
+						</div>
+				</div>
+				
+			</li>
+		{% endfor %}
+        {% endif %}
+		</ul>
+		
+	</div>
+	
+	
+		
+		</div>
+	</div>
+</div>
+
+
+
+
+ {% endblock %}

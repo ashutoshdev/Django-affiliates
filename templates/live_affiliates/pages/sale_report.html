@@ -1,0 +1,133 @@
+{% extends 'live_affiliates/layout.html' %}
+{% block page_body %}
+<style>
+  .btn-info{
+    background-color: #3f51b5 !important;
+  }
+  </style>
+<div class="addsite_sec">
+  <div class="addsite_header">
+    <div class="container">
+      <div class="main_headding"><h4>My EarningAffiliate</h4><span>Affiliate ID- {{user.id}}</span></div>
+    </div>
+  </div>
+  <div class="container h-100">
+
+    <div class="status_box">
+      <ul>
+        <li style="background: #3F51B5;">
+          <h6>Today</h6>
+          <h4>{{all_booking.today_total}} INR</h4>
+        </li>
+        <li style="background: #5d6bb9;">
+          <h6>Yesterday</h6>
+          <h4>{{all_booking.yesturday}} INR</h4>
+        </li>
+        <li style="background: #7580c1;">
+          <h6>This month so far</h6>
+          <h4>{{all_booking.monthSoFar}} INR</h4>
+        </li>
+        <li style="background: #8994d0;">
+          <h6>Last month</h6>
+          <h4>{{all_booking.last_month}} INR</h4>
+        </li>
+      </ul>
+    </div>
+
+    <form method="GET" action="/sale_report">
+      <div class="search_filter">
+        <div class="row d-flex" style="align-items: flex-end;">
+          <div class="col-12 col-sm-4 col-md-4">
+            <div class="select_search">
+              <h6>Search by:</h6>
+              <select class="form-control" name='getdataof'>
+                <option value="last_month">Last Month</option>
+                <option selected="selected" value="this_month">This Month</option>
+                <option value="all">All time</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+          </div>
+        <div class="col-12 col-sm-6 col-md-6">
+          <div class="select_filter">
+            <h6>Domain / Channel Filter:</h6>
+            <select class="form-control" name="source">
+              <option selected="selected" value="">All Domain</option>
+              {% if websites %}
+              {% for website in websites %}
+              <option  value="{{website.website_address}}">{{website.website_address}}</option>
+              {% endfor %}
+              {% endif %}
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-sm-2 col-md-2">
+          <button type="submit">Go</button>
+        </div>
+      </div>
+      </div>
+    </form>
+
+
+    <div class="seles_report">
+
+    <h4 class="mb-3 mt-3">My Websites</h4>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th scope="col" style="white-space: nowrap;" width="50">Sr No.</th>
+          <th scope="col">Category Name</th>
+          <th class="text-right" scope="col">Sub Cat Name</th>
+          <th class="text-right" scope="col">Category Id</th>
+          <th class="text-right" scope="col">Sub Cat Id</th>
+          <th class="text-right" scope="col">Total</th>
+          <th class="text-right" scope="col">Payment Mode</th>
+          <th class="text-right" scope="col">Payment Status</th>
+          <th class="text-right" scope="col">Source</th>
+          <th class="text-right" scope="col">Aff Id</th>
+          <th class="text-right" scope="col">Referrer Domain</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if all_booking %}
+      {% for data in all_booking.bookings.data %}
+        <tr>
+          <th class="text-center" scope="row">{{ forloop.counter }}</th>
+          <td class="text-right">{{data.category_name}}</td>
+          <td class="text-right">{{data.sub_cat_name}}</td>
+          <td class="text-right">{{data.category_id}}</td>
+          <td class="text-right">{{data.sub_cat_id}}</td>
+          <td class="text-right">{{data.total}}</td>
+          <td class="text-right">{{data.payment_mode}}</td>
+          <td class="text-right">{{data.payment_status}}</td>
+          <td class="text-right">{{data.source}}</td>
+          <td class="text-right">{{data.aff_id}}</td>
+          <td class="text-right">{{data.referrer_domain}}</td>
+        </tr>
+      {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+    <ul class="pagination" style="float:right;">
+      {% if all_booking.bookings.first_page_url %}
+        <li style="margin-right: 7px;"><a style="color: white;" href="{{path}}&page={{ all_booking.bookings.first_page_url|make_list|last }}"><button class="btn btn-info">First Page&nbsp;</button></a></li>
+      {% endif %}
+      {% if all_booking.bookings.prev_page_url %}
+        <li style="margin-right: 7px;"><a style="color: white;" href="{{path}}&page={{ all_booking.bookings.prev_page_url|make_list|last }}"><button class="btn btn-info">Prev&nbsp;</button></a></li>
+      {% endif %}
+      {% if all_booking.bookings.next_page_url %}
+        <li style="margin-right: 7px;"><a style="color: white;" href="{{path}}&page={{ all_booking.bookings.next_page_url|make_list|last }}"><button class="btn btn-info">Next</button></a></li>
+      {% endif %}
+
+      {% if all_booking.bookings.last_page %}
+        <li style="margin-right: 7px;"> <a style="color: white;" href="{{path}}&page={{ all_booking.bookings.last_page }}"><button class="btn btn-info">&nbsp;Last Page</button> </a></li>
+      {% endif %}
+    </ul>
+    </div>
+    <p># Finalized earnings may be slightly lower than estimated earnings.</p>
+  </div>
+
+  </div>
+</div>
+{% endblock %}
